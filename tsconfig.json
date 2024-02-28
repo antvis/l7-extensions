@@ -12,5 +12,5 @@
       "@antv/l7-g-plugin/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/*"]
+  "include": [".dumirc.ts", "src/**/*", "docs/**/*"]
 }

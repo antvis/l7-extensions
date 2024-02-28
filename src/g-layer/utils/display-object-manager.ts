@@ -82,8 +82,9 @@ export class DisplayObjectManager {
     const transformList: any[] = [];
     const rootElement = this.gCanvas.getRoot();
 
+    const pitch = this.mapService.getPitch();
     const rotation = formatRotation(this.mapService.getRotation());
-    if (rotation) {
+    if (rotation || pitch) {
       this.syncNodesPosition();
     } else if (this.isMoving && !this.isZooming) {
       const { x: oldX, y: oldY, lng, lat } = this.mapStatus.center;
