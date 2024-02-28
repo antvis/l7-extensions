@@ -17,7 +17,7 @@
     "build:watch": "father dev",
     "docs:build": "dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
-    "docs:publish": "npm run docs:build && npm run docs:publish",
+    "docs:publish": "npm run docs:build && npm run docs:deploy",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
