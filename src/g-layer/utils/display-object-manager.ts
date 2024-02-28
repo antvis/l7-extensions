@@ -1,8 +1,6 @@
 import { Canvas, DisplayObject, ElementEvent, MutationEvent } from '@antv/g';
 import { IMapService } from '@antv/l7-core';
 import { IL7GDisplayObject } from '../../display-object';
-// @ts-ignore
-import { generateCSS, translate } from 'css-matrix3d';
 import { formatRotation } from './rotation';
 
 type MapStatus = {
@@ -79,7 +77,6 @@ export class DisplayObjectManager {
   };
 
   onMapChange = () => {
-    const transformList: any[] = [];
     const rootElement = this.gCanvas.getRoot();
 
     const pitch = this.mapService.getPitch();
@@ -91,8 +88,6 @@ export class DisplayObjectManager {
       const { x, y } = this.mapService.lngLatToContainer([lng, lat]);
       const dx = x - oldX;
       const dy = y - oldY;
-      transformList.push(translate(dx, dy, 0));
-      rootElement.style.transform = generateCSS(transformList);
       rootElement.style.transform = `translate(${dx}px, ${dy}px)`;
       this.gCanvas.render();
     }
