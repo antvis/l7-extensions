@@ -16,6 +16,8 @@ export class GGroup
   }
 
   syncPosition(mapService: IMapService) {
-    void mapService;
+    this.childNodes.forEach((child) => {
+      (child as IL7GDisplayObject).syncPosition?.(mapService);
+    });
   }
 }
