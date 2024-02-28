@@ -9,6 +9,7 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://antv.vision/l7-g-plugin/",
   "scripts": {
     "start": "npm run dev",
     "dev": "dumi dev",
