@@ -1,6 +1,7 @@
 export * from './interface';
 export * from './objects/circle';
 export * from './objects/ellipse';
+export * from './objects/group';
 export * from './objects/html';
 export * from './objects/image';
 export * from './objects/line';

@@ -42,14 +42,14 @@ export class DisplayObjectManager {
   onNodeInsert = (e: MutationEvent) => {
     if (e.target instanceof DisplayObject) {
       const target = e.target as IL7GDisplayObject;
-      target?.syncPosition(this.mapService);
+      target?.syncPosition?.(this.mapService);
       target.on('COORDINATES_MODIFIED', this.onNodeCoordinatesModified);
     }
   };
 
   onNodeCoordinatesModified = (e: MutationEvent) => {
     if (e.target instanceof DisplayObject) {
-      (e.target as IL7GDisplayObject)?.syncPosition(this.mapService);
+      (e.target as IL7GDisplayObject)?.syncPosition?.(this.mapService);
     }
   };
 
@@ -108,7 +108,7 @@ export class DisplayObjectManager {
     const childNodes = rootGroup.childNodes;
     childNodes.forEach((node) => {
       if (node instanceof DisplayObject) {
-        (node as IL7GDisplayObject)?.syncPosition(this.mapService);
+        (node as IL7GDisplayObject)?.syncPosition?.(this.mapService);
       }
     });
     this.syncPrevMapStatus();
