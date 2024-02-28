@@ -23,36 +23,34 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        const group = new GGroup({});
-        for (let i = 0; i < 30; i++) {
-          const circle = new GCircle({
-            style: {
-              cx: Math.random() + 120,
-              cy: Math.random() + 30,
-              r: 6,
-              fill: '#1890FF',
-              stroke: '#ffffff',
-              lineWidth: 2,
-            },
-          });
-          group.appendChild(circle);
-        }
-        gLayer.gCanvas?.appendChild(group);
-
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
+      const group = new GGroup({});
+      for (let i = 0; i < 30; i++) {
+        const circle = new GCircle({
+          style: {
+            cx: Math.random() + 120,
+            cy: Math.random() + 30,
+            r: 6,
+            fill: '#1890FF',
+            stroke: '#ffffff',
+            lineWidth: 2,
+          },
         });
+        group.appendChild(circle);
+      }
+      gLayer.appendChild(group);
+
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

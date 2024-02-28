@@ -23,35 +23,33 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        for (let i = 0; i < 30; i++) {
-          const text = new GText({
-            style: {
-              x: Math.random() + 120,
-              y: Math.random() + 30,
-              fontSize: 20,
-              text: 'Text Demo',
-              fill: '#1890FF',
-              stroke: '#fff',
-              lineWidth: 2,
-            },
-          });
-          gLayer.gCanvas?.appendChild(text);
-        }
-
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
+      for (let i = 0; i < 30; i++) {
+        const text = new GText({
+          style: {
+            x: Math.random() + 120,
+            y: Math.random() + 30,
+            fontSize: 20,
+            text: 'Text Demo',
+            fill: '#1890FF',
+            stroke: '#fff',
+            lineWidth: 2,
+          },
         });
+        gLayer.appendChild(text);
+      }
+
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

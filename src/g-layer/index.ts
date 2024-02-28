@@ -1,4 +1,4 @@
-import { Canvas as GCanvas, IRenderer } from '@antv/g';
+import { DisplayObject, Canvas as GCanvas, IRenderer } from '@antv/g';
 import { CanvasLayer2 } from '@antv/l7';
 import './index.css';
 import { GLayerOptions } from './types';
@@ -8,6 +8,8 @@ export class GLayer extends CanvasLayer2 {
   gCanvas: GCanvas | null = null;
   gRenderer: IRenderer;
   displayObjectManager: DisplayObjectManager | null = null;
+  // 用于存储添加节点的回调函数数组
+  _appendNodeCallbacks: (() => void)[] = [];
 
   constructor(config: GLayerOptions) {
     super(config);
@@ -34,6 +36,10 @@ export class GLayer extends CanvasLayer2 {
       this.gCanvas,
       this.mapService,
     );
+    if (this._appendNodeCallbacks.length) {
+      this._appendNodeCallbacks.forEach((cb) => cb());
+      this._appendNodeCallbacks = [];
+    }
   }
 
   setRenderer(renderer: IRenderer) {
@@ -61,5 +67,59 @@ export class GLayer extends CanvasLayer2 {
   destroy() {
     super.destroy();
     this.displayObjectManager?.destroy();
+  }
+
+  appendChild<T extends DisplayObject>(child: T, index?: number): T {
+    const callback = () => {
+      return this.gCanvas!.appendChild(child, index);
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._appendNodeCallbacks.push(callback);
+      return child;
+    }
+  }
+
+  insertBefore<T extends DisplayObject, N extends DisplayObject>(
+    child: T,
+    refChild: N | null,
+  ): T {
+    const callback = () => {
+      return this.gCanvas!.insertBefore(child, refChild);
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._appendNodeCallbacks.push(callback);
+      return child;
+    }
+  }
+
+  removeChild<T extends DisplayObject>(child: T): T {
+    const callback = () => {
+      return this.gCanvas!.removeChild(child);
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._appendNodeCallbacks.push(callback);
+      return child;
+    }
+  }
+
+  removeChildren() {
+    const callback = () => {
+      return this.gCanvas!.removeChildren();
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._appendNodeCallbacks.push(callback);
+    }
+  }
+
+  getRoot() {
+    return this.gCanvas?.getRoot();
   }
 }

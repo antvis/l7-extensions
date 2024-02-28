@@ -23,31 +23,29 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        for (let i = 0; i < 30; i++) {
-          const rect = new GHTML({
-            style: {
-              x: Math.random() + 120,
-              y: Math.random() + 30,
-              innerHTML: `<button>${i + 1}</button>`,
-            },
-          });
-          gLayer.gCanvas?.appendChild(rect);
-        }
-
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
+      for (let i = 0; i < 30; i++) {
+        const html = new GHTML({
+          style: {
+            x: Math.random() + 120,
+            y: Math.random() + 30,
+            innerHTML: `<button>${i + 1}</button>`,
+          },
         });
+        gLayer.appendChild(html);
+      }
+
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

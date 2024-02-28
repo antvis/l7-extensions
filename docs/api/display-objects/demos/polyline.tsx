@@ -23,34 +23,32 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        const points: [number, number][] = [];
-        for (let i = 0; i < 10; i++) {
-          points.push([Math.random() + 120, Math.random() + 30]);
-        }
-        const polyline = new GPolyline({
-          style: {
-            points,
-            stroke: '#1890FF',
-            lineWidth: 2,
-            cursor: 'pointer',
-          },
-        });
-        gLayer.gCanvas?.appendChild(polyline);
+      const points: [number, number][] = [];
+      for (let i = 0; i < 10; i++) {
+        points.push([Math.random() + 120, Math.random() + 30]);
+      }
+      const polyline = new GPolyline({
+        style: {
+          points,
+          stroke: '#1890FF',
+          lineWidth: 2,
+          cursor: 'pointer',
+        },
+      });
+      gLayer.appendChild(polyline);
 
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
-        });
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

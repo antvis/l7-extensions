@@ -23,33 +23,31 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        for (let i = 0; i < 30; i++) {
-          const rect = new GImage({
-            style: {
-              x: Math.random() + 120,
-              y: Math.random() + 30,
-              width: 20,
-              height: 20,
-              img: 'https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*N4ZMS7gHsUIAAAAAAAAAAABkARQnAQ',
-            },
-          });
-          gLayer.gCanvas?.appendChild(rect);
-        }
-
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
+      for (let i = 0; i < 30; i++) {
+        const image = new GImage({
+          style: {
+            x: Math.random() + 120,
+            y: Math.random() + 30,
+            width: 20,
+            height: 20,
+            img: 'https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*N4ZMS7gHsUIAAAAAAAAAAABkARQnAQ',
+          },
         });
+        gLayer.appendChild(image);
+      }
+
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

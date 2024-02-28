@@ -23,36 +23,34 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        const center = [Math.random() + 120, Math.random() + 30];
-        for (let i = 0; i < 30; i++) {
-          const lines = new GLine({
-            style: {
-              x1: center[0],
-              y1: center[1],
-              x2: Math.random() + 120,
-              y2: Math.random() + 30,
-              stroke: '#1890FF',
-              lineWidth: 2,
-              cursor: 'pointer',
-            },
-          });
-          gLayer.gCanvas?.appendChild(lines);
-        }
-
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
+      const center = [Math.random() + 120, Math.random() + 30];
+      for (let i = 0; i < 30; i++) {
+        const lines = new GLine({
+          style: {
+            x1: center[0],
+            y1: center[1],
+            x2: Math.random() + 120,
+            y2: Math.random() + 30,
+            stroke: '#1890FF',
+            lineWidth: 2,
+            cursor: 'pointer',
+          },
         });
+        gLayer.appendChild(lines);
+      }
+
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

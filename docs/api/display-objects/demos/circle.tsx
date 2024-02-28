@@ -23,34 +23,32 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        for (let i = 0; i < 30; i++) {
-          const circle = new GCircle({
-            style: {
-              cx: Math.random() + 120,
-              cy: Math.random() + 30,
-              r: 6,
-              fill: '#1890FF',
-              stroke: '#ffffff',
-              lineWidth: 2,
-            },
-          });
-          gLayer.gCanvas?.appendChild(circle);
-        }
-
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
+      for (let i = 0; i < 30; i++) {
+        const circle = new GCircle({
+          style: {
+            cx: Math.random() + 120,
+            cy: Math.random() + 30,
+            r: 6,
+            fill: '#1890FF',
+            stroke: '#ffffff',
+            lineWidth: 2,
+          },
         });
+        gLayer.appendChild(circle);
+      }
+
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);

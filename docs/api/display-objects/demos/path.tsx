@@ -23,8 +23,7 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      gLayer.on('add', () => {
-        /**
+      /**
          * {
   "type": "FeatureCollection",
   "features": [
@@ -48,28 +47,27 @@ export default function Demo1() {
 }
 
          */
-        const lines = new GPath({
-          style: {
-            path: `M 120.157753 30.331764 H 120.5 V 30.6 H 120.157753 L 120.157753 30.331764`,
-            stroke: '#1890FF',
-            lineWidth: 2,
-          },
-        });
-        gLayer.gCanvas?.appendChild(lines);
+      const lines = new GPath({
+        style: {
+          path: `M 120.157753 30.331764 H 120.5 V 30.6 H 120.157753 L 120.157753 30.331764`,
+          stroke: '#1890FF',
+          lineWidth: 2,
+        },
+      });
+      gLayer.appendChild(lines);
 
-        const stats = new Stats();
-        stats.showPanel(0);
-        const $stats = stats.dom;
-        $stats.style.position = 'absolute';
-        $stats.style.left = '0px';
-        $stats.style.top = '0px';
-        const $wrapper = scene.getMapContainer() as HTMLElement;
-        $wrapper.appendChild($stats);
-        gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
-          if (stats) {
-            stats.update();
-          }
-        });
+      const stats = new Stats();
+      stats.showPanel(0);
+      const $stats = stats.dom;
+      $stats.style.position = 'absolute';
+      $stats.style.left = '0px';
+      $stats.style.top = '0px';
+      const $wrapper = scene.getMapContainer() as HTMLElement;
+      $wrapper.appendChild($stats);
+      gLayer.gCanvas?.addEventListener(CanvasEvent.AFTER_RENDER, () => {
+        if (stats) {
+          stats.update();
+        }
       });
     });
   }, []);
