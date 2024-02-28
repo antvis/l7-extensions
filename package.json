@@ -1,0 +1,89 @@
+{
+  "name": "@antv/l7-g-plugin",
+  "version": "0.0.1",
+  "description": "A react library developed with dumi",
+  "license": "MIT",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "dumi dev",
+    "build": "father build",
+    "build:watch": "father dev",
+    "docs:build": "dumi build",
+    "doctor": "father doctor",
+    "lint": "npm run lint:es && npm run lint:css",
+    "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
+    "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky install && dumi setup",
+    "prepublishOnly": "father doctor && npm run build"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.{css,less}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "@antv/util": "^3.3.7",
+    "css-matrix3d": "^0.0.2",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@antv/g": "^5.18.24",
+    "@antv/g-canvas": "^1.11.26",
+    "@antv/g-canvaskit": "^0.10.26",
+    "@antv/g-svg": "^1.10.25",
+    "@antv/g-webgl": "^1.9.36",
+    "@antv/g-webgpu": "^1.9.36",
+    "@antv/l7": "^2.20.16",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@types/lodash-es": "^4.17.12",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/stats.js": "^0.17.3",
+    "@umijs/lint": "^4.0.0",
+    "dumi": "^2.2.13",
+    "eslint": "^8.23.0",
+    "father": "^4.1.0",
+    "gl-matrix": "^3.4.3",
+    "husky": "^8.0.1",
+    "lil-gui": "^0.19.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.0.0",
+    "prettier-plugin-packagejson": "^2.2.18",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "stats.js": "^0.17.0",
+    "stylelint": "^14.9.1"
+  },
+  "peerDependencies": {
+    "@antv/g": "^5.18.24",
+    "@antv/l7": "^2.20.16"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": []
+}
