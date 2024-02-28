@@ -1,11 +1,17 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  outputPath: 'docs-dist',
+  title: 'L7 G Plugin',
+  favicons: [
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rAi0RZC91bQAAAAAAAAAAAAADmJ7AQ/original',
+  ],
   themeConfig: {
-    name: 'l7-g-plugin',
+    name: 'L7 G Plugin',
+    logo: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QGswQZ2nlGkAAAAAAAAAAAAADmJ7AQ/original',
   },
-  resolve: {},
+  outputPath: 'docs-dist',
+  base: '/l7-g-plugin',
+  publicPath: '/l7-g-plugin/',
   scripts: [
     `
     window._AMapSecurityConfig = {

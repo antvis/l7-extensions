@@ -1,5 +1,5 @@
 import { Canvas as GCanvas, IRenderer } from '@antv/g';
-import { CanvasLayer2 } from '@antv/l7-layers';
+import { CanvasLayer2 } from '@antv/l7';
 import './index.css';
 import { GLayerOptions } from './types';
 import { DisplayObjectManager } from './utils/display-object-manager';

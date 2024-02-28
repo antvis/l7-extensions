@@ -1,10 +1,11 @@
 {
   "name": "@antv/l7-g-plugin",
   "version": "0.0.1",
-  "description": "A react library developed with dumi",
+  "description": "A L7 plugin for using G in L7 environments",
   "license": "MIT",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "files": [
     "dist"
   ],
@@ -14,6 +15,8 @@
     "build": "father build",
     "build:watch": "father dev",
     "docs:build": "dumi build",
+    "docs:deploy": "gh-pages -d docs-dist",
+    "docs:publish": "npm run docs:build && npm run docs:publish",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
@@ -45,7 +48,6 @@
   },
   "dependencies": {
     "@antv/util": "^3.3.7",
-    "css-matrix3d": "^0.0.2",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
@@ -66,6 +68,7 @@
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
+    "gh-pages": "^6.1.1",
     "gl-matrix": "^3.4.3",
     "husky": "^8.0.1",
     "lil-gui": "^0.19.1",

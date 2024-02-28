@@ -1,7 +1,11 @@
 node_modules
-/dist
 .dumi/tmp
 .dumi/tmp-test
 .dumi/tmp-production
 .DS_Store
 yarn.lock
+yarn-lock.log
+/es
+/lib
+/dist
+/docs-dist
