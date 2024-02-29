@@ -1,7 +1,7 @@
 import { Canvas, DisplayObject, ElementEvent, MutationEvent } from '@antv/g';
 import { IMapService } from '@antv/l7-core';
 import { IL7GDisplayObject } from '../../display-object';
-import { formatRotation } from './rotation';
+import { formatRotation } from '../utils';
 
 type MapStatus = {
   center: {
@@ -14,7 +14,7 @@ type MapStatus = {
   rotation: number;
 };
 
-export class DisplayObjectManager {
+export class MapSyncService {
   gCanvas: Canvas;
   mapService: IMapService;
   isZooming = false;

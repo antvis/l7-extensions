@@ -1,11 +1,18 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
+import { Renderer as SVGRender } from '@antv/g-svg';
+import { Renderer as WebglRenderer } from '@antv/g-webgl';
 import { GaodeMap, Scene } from '@antv/l7';
 import { GCircle, GLayer } from '@antv/l7-g-plugin';
+import GUI from 'lil-gui';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
 const mapId = 'map' + Math.random();
+
+const canvasRenderer = new CanvasRenderer();
+const svgRenderer = new SVGRender();
+const webglRenderer = new WebglRenderer();
 
 export default function Demo1() {
   useEffect(() => {
@@ -19,7 +26,7 @@ export default function Demo1() {
     });
     scene.on('loaded', () => {
       const gLayer = new GLayer({
-        renderer: new CanvasRenderer(),
+        renderer: canvasRenderer,
       });
       scene.addLayer(gLayer);
 
@@ -36,6 +43,31 @@ export default function Demo1() {
         });
         gLayer.appendChild(circle);
       }
+
+      const gui = new GUI({
+        autoPlace: false,
+      });
+      gui
+        .add(
+          {
+            renderer: 'canvas',
+          },
+          'renderer',
+          ['canvas', 'svg', 'webgl'],
+        )
+        .onChange((value: string) => {
+          if (value === 'canvas') {
+            gLayer.setRenderer(canvasRenderer);
+          }
+          if (value === 'svg') {
+            gLayer.setRenderer(svgRenderer);
+          }
+          if (value === 'webgl') {
+            gLayer.setRenderer(webglRenderer);
+          }
+        });
+
+      scene.getMapContainer()?.append(gui.domElement);
 
       const stats = new Stats();
       stats.showPanel(0);

@@ -1,13 +1,13 @@
 import { DisplayObject, Canvas as GCanvas, IRenderer } from '@antv/g';
 import { CanvasLayer2 } from '@antv/l7';
 import './index.css';
+import { MapSyncService } from './services';
 import { GLayerOptions } from './types';
-import { DisplayObjectManager } from './utils/display-object-manager';
 
 export class GLayer extends CanvasLayer2 {
   gCanvas: GCanvas | null = null;
   gRenderer: IRenderer;
-  displayObjectManager: DisplayObjectManager | null = null;
+  mapSyncService: MapSyncService | null = null;
   // 用于存储添加节点的回调函数数组
   _appendNodeCallbacks: (() => void)[] = [];
 
@@ -23,19 +23,14 @@ export class GLayer extends CanvasLayer2 {
 
   initGCanvas() {
     const [width, height] = this.mapService.getSize();
-    const canvas = this.layerModel.canvas!;
     this.gCanvas = new GCanvas({
       width,
       height,
       renderer: this.gRenderer,
       container: this.initContainer(),
-      canvas,
     });
     this.injectDevtool();
-    this.displayObjectManager = new DisplayObjectManager(
-      this.gCanvas,
-      this.mapService,
-    );
+    this.mapSyncService = new MapSyncService(this.gCanvas, this.mapService);
     if (this._appendNodeCallbacks.length) {
       this._appendNodeCallbacks.forEach((cb) => cb());
       this._appendNodeCallbacks = [];
@@ -66,7 +61,7 @@ export class GLayer extends CanvasLayer2 {
 
   destroy() {
     super.destroy();
-    this.displayObjectManager?.destroy();
+    this.mapSyncService?.destroy();
   }
 
   appendChild<T extends DisplayObject>(child: T, index?: number): T {
