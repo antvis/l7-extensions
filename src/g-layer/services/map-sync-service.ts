@@ -1,6 +1,9 @@
 import { Canvas, DisplayObject, ElementEvent, MutationEvent } from '@antv/g';
 import { IMapService } from '@antv/l7-core';
+import { isNumber } from '@antv/util';
+import EventEmitter from 'eventemitter3';
 import { IL7GDisplayObject } from '../../display-object';
+import type { GLayer } from '../index';
 import { formatRotation } from '../utils';
 
 type MapStatus = {
@@ -14,11 +17,17 @@ type MapStatus = {
   rotation: number;
 };
 
-export class MapSyncService {
+export enum MapSyncServiceEvent {
+  IS_OUT_ZOOM_CHANGE = 'is-out-zoom-change',
+}
+
+export class MapSyncService extends EventEmitter {
   gCanvas: Canvas;
   mapService: IMapService;
+  gLayer: GLayer;
   isZooming = false;
   isMoving = false;
+  isOutZoom = false;
   mapStatus: MapStatus = {
     center: {
       x: 0,
@@ -30,11 +39,28 @@ export class MapSyncService {
     rotation: 0,
   };
 
-  constructor(gCanvas: Canvas, mapService: IMapService) {
+  get layerConfig() {
+    return this.gLayer.getLayerConfig();
+  }
+
+  get rootGroup() {
+    return this.gCanvas.getRoot();
+  }
+
+  constructor(gCanvas: Canvas, mapService: IMapService, gLayer: GLayer) {
+    super();
     this.gCanvas = gCanvas;
     this.mapService = mapService;
+    this.gLayer = gLayer;
+
+    if (this.layerConfig.visible === false) {
+      this.rootGroup.style.visibility = false;
+    }
     this.syncPrevMapStatus();
     this.bindMapEvents();
+    requestAnimationFrame(() => {
+      this.syncIsOutZoom();
+    });
   }
 
   onNodeInsert = (e: MutationEvent) => {
@@ -66,6 +92,7 @@ export class MapSyncService {
 
   onMapZooming = () => {
     this.syncNodesPosition();
+    this.syncIsOutZoom();
   };
 
   onMapZoomEnd = () => {
@@ -77,8 +104,6 @@ export class MapSyncService {
   };
 
   onMapChange = () => {
-    const rootElement = this.gCanvas.getRoot();
-
     const pitch = this.mapService.getPitch();
     const rotation = formatRotation(this.mapService.getRotation());
     if (rotation || pitch) {
@@ -88,7 +113,7 @@ export class MapSyncService {
       const { x, y } = this.mapService.lngLatToContainer([lng, lat]);
       const dx = x - oldX;
       const dy = y - oldY;
-      rootElement.style.transform = `translate(${dx}px, ${dy}px)`;
+      this.rootGroup.style.transform = `translate(${dx}px, ${dy}px)`;
       this.gCanvas.render();
     }
   };
@@ -99,7 +124,7 @@ export class MapSyncService {
   };
 
   syncNodesPosition() {
-    const rootGroup = this.gCanvas.getRoot();
+    const rootGroup = this.rootGroup;
     const childNodes = rootGroup.childNodes;
     childNodes.forEach((node) => {
       if (node instanceof DisplayObject) {
@@ -122,6 +147,24 @@ export class MapSyncService {
       pitch: this.mapService.getPitch(),
       rotation: formatRotation(this.mapService.getRotation()),
     };
+  }
+
+  syncIsOutZoom() {
+    const { minZoom, maxZoom } = this.layerConfig;
+    const zoom = this.mapService.getZoom();
+    let newIsOutZoom = this.isOutZoom;
+    if (
+      (isNumber(minZoom) && zoom < minZoom) ||
+      (isNumber(maxZoom) && zoom > maxZoom)
+    ) {
+      newIsOutZoom = true;
+    } else {
+      newIsOutZoom = false;
+    }
+    if (newIsOutZoom !== this.isOutZoom) {
+      this.isOutZoom = newIsOutZoom;
+      this.emit(MapSyncServiceEvent.IS_OUT_ZOOM_CHANGE, newIsOutZoom);
+    }
   }
 
   bindMapEvents() {

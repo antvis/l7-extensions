@@ -1,7 +1,7 @@
 import { DisplayObject, Canvas as GCanvas, IRenderer } from '@antv/g';
-import { CanvasLayer2 } from '@antv/l7';
+import { BaseLayer, CanvasLayer2 } from '@antv/l7';
 import './index.css';
-import { MapSyncService } from './services';
+import { MapSyncService, MapSyncServiceEvent } from './services';
 import { GLayerOptions } from './types';
 
 export class GLayer extends CanvasLayer2 {
@@ -29,8 +29,19 @@ export class GLayer extends CanvasLayer2 {
       renderer: this.gRenderer,
       container: this.initContainer(),
     });
+    if (this.getLayerConfig().visible === false) {
+      this.gCanvas.getRoot().style.visibility = 'hidden';
+    }
     this.injectDevtool();
-    this.mapSyncService = new MapSyncService(this.gCanvas, this.mapService);
+    this.mapSyncService = new MapSyncService(
+      this.gCanvas,
+      this.mapService,
+      this,
+    );
+    this.mapSyncService.on(
+      MapSyncServiceEvent.IS_OUT_ZOOM_CHANGE,
+      this._onIsOutZoomChange,
+    );
     if (this._appendNodeCallbacks.length) {
       this._appendNodeCallbacks.forEach((cb) => cb());
       this._appendNodeCallbacks = [];
@@ -117,4 +128,86 @@ export class GLayer extends CanvasLayer2 {
   getRoot() {
     return this.gCanvas?.getRoot();
   }
+
+  show() {
+    this.visible = true;
+    if (!this.mapSyncService?.isOutZoom && this.gCanvas) {
+      this.gCanvas.getRoot().style.visibility = 'visible';
+    }
+    return super.show();
+  }
+
+  hide() {
+    this.visible = false;
+    if (this.gCanvas) {
+      this.gCanvas.getRoot().style.visibility = 'hidden';
+    }
+    return super.hide();
+  }
+
+  fitBounds = (fitBoundsOptions?: unknown) => {
+    if (this.gCanvas) {
+      const { min, max } = this.gCanvas.getRoot().getRenderBounds();
+      const { lng: minLng, lat: minLat } = this.mapService.containerToLngLat([
+        min[0],
+        min[1],
+      ]);
+      const { lng: maxLng, lat: maxLat } = this.mapService.containerToLngLat([
+        max[0],
+        max[1],
+      ]);
+      this.mapService.fitBounds(
+        [
+          [minLng, minLat],
+          [maxLng, maxLat],
+        ],
+        fitBoundsOptions,
+      );
+    }
+
+    return this;
+  };
+
+  boxSelect: BaseLayer['boxSelect'] = (box, cb) => {
+    const [minLng, minLat, maxLng, maxLat] = box;
+    const { x: x1, y: y1 } = this.mapService.lngLatToContainer([
+      minLng,
+      minLat,
+    ]);
+    const { x: x2, y: y2 } = this.mapService.lngLatToContainer([
+      maxLng,
+      maxLat,
+    ]);
+    const minX = Math.min(x1, x2);
+    const minY = Math.min(y1, y2);
+    const maxX = Math.max(x1, x2);
+    const maxY = Math.max(y1, y2);
+    return cb(
+      this.gCanvas?.getRoot().childNodes.filter((child) => {
+        const {
+          min: [minNodeX, minNodeY],
+          max: [maxNodeX, maxNodeY],
+        } = (child as DisplayObject).getRenderBounds();
+        return (
+          minNodeX >= minX &&
+          minNodeY >= minY &&
+          maxNodeX <= maxX &&
+          maxNodeY <= maxY
+        );
+      }) ?? [],
+    );
+  };
+
+  protected _onIsOutZoomChange = (isOutZoom: boolean) => {
+    const rootGroup = this.gCanvas?.getRoot();
+    if (!rootGroup) {
+      return;
+    }
+    if (isOutZoom && this.visible) {
+      rootGroup.style.visibility = 'hidden';
+    }
+    if (!isOutZoom && this.visible) {
+      rootGroup.style.visibility = 'visible';
+    }
+  };
 }

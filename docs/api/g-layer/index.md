@@ -15,3 +15,7 @@ nav:
 ## 渲染器
 
 <code src="./demos/renderer.tsx" compact defaultShowCode></code>
+
+## 图层基础配置和方法
+
+<code src="./demos/layer-options.tsx" compact defaultShowCode></code>

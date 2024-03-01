@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@antv/util": "^3.3.7",
+    "eventemitter3": "^5.0.1",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
