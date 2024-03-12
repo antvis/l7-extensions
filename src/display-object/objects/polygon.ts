@@ -5,6 +5,7 @@ import {
   PolygonStyleProps,
 } from '@antv/g';
 import { IMapService } from '@antv/l7-core';
+import { proxyEventListener } from '../../utils';
 import { IL7GDisplayObject } from '../interface';
 
 export class GPolygon
@@ -13,6 +14,7 @@ export class GPolygon
 {
   originStyle: PolygonStyleProps & ICSSStyleDeclaration<PolygonStyleProps>;
   coordinates: PolygonStyleProps['points'];
+  mapService?: IMapService;
 
   constructor(config: DisplayObjectConfig<PolygonStyleProps>) {
     super(config);
@@ -39,6 +41,10 @@ export class GPolygon
   }
 
   syncPosition(mapService: IMapService) {
+    if (!this.mapService) {
+      this.mapService = mapService;
+      proxyEventListener(this, this.mapService);
+    }
     const newPoints = this.coordinates.map((position) => {
       if (position.length === 2) {
         const { x, y } = mapService.lngLatToContainer(position);

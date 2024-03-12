@@ -7,5 +7,6 @@ export interface IL7GDisplayObject<
 > extends DisplayObject<T> {
   originStyle: T;
   coordinates: C;
+  mapService?: IMapService;
   syncPosition(mapService: IMapService): void;
 }

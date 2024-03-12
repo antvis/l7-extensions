@@ -5,6 +5,7 @@ import {
   LineStyleProps,
 } from '@antv/g';
 import { IMapService } from '@antv/l7-core';
+import { proxyEventListener } from '../../utils';
 import { IL7GDisplayObject } from '../interface';
 import { getNumber } from '../utils';
 
@@ -15,6 +16,7 @@ export class GLine
 {
   originStyle: LineStyleProps & ICSSStyleDeclaration<LineStyleProps>;
   coordinates: [[number, number], [number, number]];
+  mapService?: IMapService;
 
   constructor(config: DisplayObjectConfig<LineStyleProps>) {
     super(config);
@@ -52,6 +54,10 @@ export class GLine
   }
 
   syncPosition(mapService: IMapService) {
+    if (!this.mapService) {
+      this.mapService = mapService;
+      proxyEventListener(this, this.mapService);
+    }
     const { x: x1, y: y1 } = mapService.lngLatToContainer(this.coordinates[0]);
     const { x: x2, y: y2 } = mapService.lngLatToContainer(this.coordinates[1]);
     this.originStyle.x1 = x1;

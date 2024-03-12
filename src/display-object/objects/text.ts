@@ -5,6 +5,7 @@ import {
   TextStyleProps,
 } from '@antv/g';
 import { IMapService } from '@antv/l7-core';
+import { proxyEventListener } from '../../utils';
 import { IL7GDisplayObject } from '../interface';
 import { getNumber } from '../utils';
 
@@ -14,6 +15,7 @@ export class GText
 {
   originStyle: TextStyleProps & ICSSStyleDeclaration<TextStyleProps>;
   coordinates: [number, number];
+  mapService?: IMapService;
 
   constructor(config: DisplayObjectConfig<TextStyleProps>) {
     super(config);
@@ -42,6 +44,10 @@ export class GText
   }
 
   syncPosition(mapService: IMapService) {
+    if (!this.mapService) {
+      this.mapService = mapService;
+      proxyEventListener(this, this.mapService);
+    }
     const { x, y } = mapService.lngLatToContainer(this.coordinates);
     this.originStyle.x = x;
     this.originStyle.y = y;

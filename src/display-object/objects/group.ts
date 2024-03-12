@@ -1,5 +1,6 @@
 import { DisplayObjectConfig, Group, GroupStyleProps } from '@antv/g';
 import { IMapService } from '@antv/l7';
+import { proxyEventListener } from '../../utils';
 import { IL7GDisplayObject } from '../interface';
 
 export class GGroup
@@ -8,6 +9,7 @@ export class GGroup
 {
   originStyle: GroupStyleProps;
   coordinates: undefined;
+  mapService?: IMapService;
 
   constructor(config: DisplayObjectConfig<GroupStyleProps>) {
     super(config);
@@ -16,6 +18,10 @@ export class GGroup
   }
 
   syncPosition(mapService: IMapService) {
+    if (!this.mapService) {
+      this.mapService = mapService;
+      proxyEventListener(this, this.mapService);
+    }
     this.childNodes.forEach((child) => {
       (child as IL7GDisplayObject).syncPosition?.(mapService);
     });

@@ -7,6 +7,7 @@ import {
 import { IMapService } from '@antv/l7-core';
 import { NormalArray, PathArray, memoize, normalizePath } from '@antv/util';
 import { cloneDeep } from 'lodash-es';
+import { proxyEventListener } from '../../utils';
 import { IL7GDisplayObject } from '../interface';
 
 const memoizedNormalizePath = memoize(normalizePath);
@@ -17,6 +18,7 @@ export class GPath
 {
   originStyle: PathStyleProps & ICSSStyleDeclaration<PathStyleProps>;
   coordinates: PathStyleProps['path'];
+  mapService?: IMapService;
 
   constructor(config: DisplayObjectConfig<PathStyleProps>) {
     super(config);
@@ -43,6 +45,10 @@ export class GPath
   }
 
   syncPosition(mapService: IMapService) {
+    if (!this.mapService) {
+      this.mapService = mapService;
+      proxyEventListener(this, this.mapService);
+    }
     const paths: NormalArray = memoizedNormalizePath(this.coordinates ?? '');
     this.originStyle.path = paths.map((path) => {
       let newPath = cloneDeep(path);

@@ -1,15 +1,23 @@
-import { DisplayObject, Canvas as GCanvas, IRenderer } from '@antv/g';
+import {
+  DisplayObject,
+  EventListenerOrEventListenerObject,
+  FederatedEvent,
+  Canvas as GCanvas,
+  IEventTarget,
+  IRenderer,
+} from '@antv/g';
 import { BaseLayer, CanvasLayer2 } from '@antv/l7';
+import { proxyEventListener } from '../utils';
 import './index.css';
 import { MapSyncService, MapSyncServiceEvent } from './services';
 import { GLayerOptions } from './types';
 
-export class GLayer extends CanvasLayer2 {
+export class GLayer extends CanvasLayer2 implements IEventTarget {
   gCanvas: GCanvas | null = null;
   gRenderer: IRenderer;
   mapSyncService: MapSyncService | null = null;
   // 用于存储添加节点的回调函数数组
-  _appendNodeCallbacks: (() => void)[] = [];
+  protected _initialCallback: (() => void)[] = [];
 
   constructor(config: GLayerOptions) {
     super(config);
@@ -17,7 +25,6 @@ export class GLayer extends CanvasLayer2 {
   }
 
   async buildModels() {
-    super.buildModels();
     this.initGCanvas();
   }
 
@@ -29,10 +36,10 @@ export class GLayer extends CanvasLayer2 {
       renderer: this.gRenderer,
       container: this.initContainer(),
     });
+    proxyEventListener(this.gCanvas, this.mapService);
     if (this.getLayerConfig().visible === false) {
       this.gCanvas.getRoot().style.visibility = 'hidden';
     }
-    this.injectDevtool();
     this.mapSyncService = new MapSyncService(
       this.gCanvas,
       this.mapService,
@@ -42,10 +49,11 @@ export class GLayer extends CanvasLayer2 {
       MapSyncServiceEvent.IS_OUT_ZOOM_CHANGE,
       this._onIsOutZoomChange,
     );
-    if (this._appendNodeCallbacks.length) {
-      this._appendNodeCallbacks.forEach((cb) => cb());
-      this._appendNodeCallbacks = [];
+    if (this._initialCallback.length) {
+      this._initialCallback.forEach((cb) => cb());
+      this._initialCallback = [];
     }
+    this.injectDevtool();
   }
 
   setRenderer(renderer: IRenderer) {
@@ -57,7 +65,7 @@ export class GLayer extends CanvasLayer2 {
     const container = document.createElement('div');
     container.classList.add('l7-g-container');
     container.style.zIndex = this.getLayerConfig().zIndex;
-    this.mapService.getContainer()!.appendChild(container);
+    this.mapService.getCanvasOverlays()!.appendChild(container);
     return container;
   }
 
@@ -82,7 +90,7 @@ export class GLayer extends CanvasLayer2 {
     if (this.gCanvas) {
       return callback();
     } else {
-      this._appendNodeCallbacks.push(callback);
+      this._initialCallback.push(callback);
       return child;
     }
   }
@@ -97,7 +105,7 @@ export class GLayer extends CanvasLayer2 {
     if (this.gCanvas) {
       return callback();
     } else {
-      this._appendNodeCallbacks.push(callback);
+      this._initialCallback.push(callback);
       return child;
     }
   }
@@ -109,7 +117,7 @@ export class GLayer extends CanvasLayer2 {
     if (this.gCanvas) {
       return callback();
     } else {
-      this._appendNodeCallbacks.push(callback);
+      this._initialCallback.push(callback);
       return child;
     }
   }
@@ -121,7 +129,52 @@ export class GLayer extends CanvasLayer2 {
     if (this.gCanvas) {
       return callback();
     } else {
-      this._appendNodeCallbacks.push(callback);
+      this._initialCallback.push(callback);
+    }
+  }
+
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions | undefined,
+  ) {
+    const callback = () => {
+      return this.gCanvas!.addEventListener(type, listener, options);
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._initialCallback.push(callback);
+    }
+  }
+
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions | undefined,
+  ) {
+    const callback = () => {
+      return this.gCanvas!.removeEventListener(type, listener, options);
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._initialCallback.push(callback);
+    }
+  }
+
+  dispatchEvent<T extends FederatedEvent<Event, any>>(
+    e: T,
+    skipPropagate?: boolean | undefined,
+  ) {
+    const callback = () => {
+      return this.gCanvas!.dispatchEvent(e, skipPropagate);
+    };
+    if (this.gCanvas) {
+      return callback();
+    } else {
+      this._initialCallback.push(callback);
+      return false;
     }
   }
 

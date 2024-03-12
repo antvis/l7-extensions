@@ -19,3 +19,7 @@ nav:
 ## 图层基础配置和方法
 
 <code src="./demos/layer-options.tsx" compact defaultShowCode></code>
+
+## 事件
+
+<code src="./demos/events.tsx" compact defaultShowCode></code>
