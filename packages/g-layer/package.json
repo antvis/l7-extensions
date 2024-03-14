@@ -1,0 +1,43 @@
+{
+  "name": "@antv/l7-extension-g-layer",
+  "version": "0.0.1",
+  "description": "A L7 plugin for using G in L7 environments",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
+  "files": [
+    "lib",
+    "es",
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "father build"
+  },
+  "dependencies": {
+    "@antv/util": "^3.3.7",
+    "eventemitter3": "^5.0.1",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@antv/g": "^5.18.24",
+    "@antv/g-canvas": "^1.11.26",
+    "@antv/g-canvaskit": "^0.10.26",
+    "@antv/g-svg": "^1.10.25",
+    "@antv/g-webgl": "^1.9.36",
+    "@antv/g-webgpu": "^1.9.36",
+    "@antv/l7": "^2.21.0",
+    "father": "^4.1.0",
+    "lil-gui": "^0.19.1",
+    "stats.js": "^0.17.0"
+  },
+  "peerDependencies": {
+    "@antv/g": "^5.18.24",
+    "@antv/l7": "^2.21.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": []
+}

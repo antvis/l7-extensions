@@ -1,7 +1,7 @@
 import type { IRenderer } from '@antv/g';
-import type { ICanvasLayer2Options } from '@antv/l7-layers';
+import type { ICanvasLayerOptions } from '@antv/l7-layers';
 
-export interface GLayerOptions extends ICanvasLayer2Options {
+export interface GLayerOptions extends ICanvasLayerOptions {
   renderer: IRenderer;
   visible?: boolean;
   minZoom?: number;

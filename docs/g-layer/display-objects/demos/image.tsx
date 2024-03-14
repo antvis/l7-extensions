@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GCircle, GLayer } from '@antv/l7-g-plugin';
+import { GImage, GLayer } from '@antv/l7-extension-g-layer';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
@@ -24,17 +24,16 @@ export default function Demo1() {
       scene.addLayer(gLayer);
 
       for (let i = 0; i < 30; i++) {
-        const circle = new GCircle({
+        const image = new GImage({
           style: {
-            cx: Math.random() + 120,
-            cy: Math.random() + 30,
-            r: 6,
-            fill: '#1890FF',
-            stroke: '#ffffff',
-            lineWidth: 2,
+            x: Math.random() + 120,
+            y: Math.random() + 30,
+            width: 20,
+            height: 20,
+            img: 'https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*N4ZMS7gHsUIAAAAAAAAAAABkARQnAQ',
           },
         });
-        gLayer.appendChild(circle);
+        gLayer.appendChild(image);
       }
 
       const stats = new Stats();

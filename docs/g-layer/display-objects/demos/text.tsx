@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GLayer, GPath } from '@antv/l7-g-plugin';
+import { GLayer, GText } from '@antv/l7-extension-g-layer';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
@@ -23,38 +23,20 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      /**
-         * {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [120.157753, 30.331764]
+      for (let i = 0; i < 30; i++) {
+        const text = new GText({
+          style: {
+            x: Math.random() + 120,
+            y: Math.random() + 30,
+            fontSize: 20,
+            text: 'Text Demo',
+            fill: '#1890FF',
+            stroke: '#fff',
+            lineWidth: 2,
+          },
+        });
+        gLayer.appendChild(text);
       }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [120.341845, 30.265379]
-      }
-    }
-  ]
-}
-
-         */
-      const lines = new GPath({
-        style: {
-          path: `M 120.157753 30.331764 H 120.5 V 30.6 H 120.157753 L 120.157753 30.331764`,
-          stroke: '#1890FF',
-          lineWidth: 2,
-        },
-      });
-      gLayer.appendChild(lines);
 
       const stats = new Stats();
       stats.showPanel(0);

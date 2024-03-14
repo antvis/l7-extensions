@@ -1,29 +1,19 @@
 {
-  "name": "@antv/l7-g-plugin",
-  "version": "0.0.1",
-  "description": "A L7 plugin for using G in L7 environments",
-  "license": "MIT",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "types": "es/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "name": "@antv/l7-extension",
   "homepage": "https://antv.vision/l7-g-plugin/",
   "scripts": {
-    "start": "npm run dev",
+    "build": "lerna run build",
     "dev": "dumi dev",
-    "build": "father build",
-    "build:watch": "father dev",
     "docs:build": "dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
     "docs:publish": "npm run docs:build && npm run docs:deploy",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
-    "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
-    "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "lint:css": "stylelint \"{packages,test}/**/*.{css,less}\"",
+    "lint:es": "eslint \"{packages,test}/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install && dumi setup",
-    "prepublishOnly": "father doctor && npm run build"
+    "prepublishOnly": "father doctor && npm run build",
+    "start": "npm run dev"
   },
   "commitlint": {
     "extends": [
@@ -47,11 +37,6 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "dependencies": {
-    "@antv/util": "^3.3.7",
-    "eventemitter3": "^5.0.1",
-    "lodash-es": "^4.17.21"
-  },
   "devDependencies": {
     "@antv/g": "^5.18.24",
     "@antv/g-canvas": "^1.11.26",
@@ -59,7 +44,8 @@
     "@antv/g-svg": "^1.10.25",
     "@antv/g-webgl": "^1.9.36",
     "@antv/g-webgpu": "^1.9.36",
-    "@antv/l7": "^2.20.16",
+    "@antv/l7": "^2.21.0",
+    "@antv/util": "^3.3.7",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@types/lodash-es": "^4.17.12",
@@ -69,12 +55,15 @@
     "@umijs/lint": "^4.0.0",
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
+    "eventemitter3": "^5.0.1",
     "father": "^4.1.0",
     "gh-pages": "^6.1.1",
     "gl-matrix": "^3.4.3",
     "husky": "^8.0.1",
+    "lerna": "^4.0.0",
     "lil-gui": "^0.19.1",
     "lint-staged": "^13.0.3",
+    "lodash-es": "^4.17.21",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.0.0",
     "prettier-plugin-packagejson": "^2.2.18",
@@ -82,13 +71,5 @@
     "react-dom": "^18.0.0",
     "stats.js": "^0.17.0",
     "stylelint": "^14.9.1"
-  },
-  "peerDependencies": {
-    "@antv/g": "^5.18.24",
-    "@antv/l7": "^2.20.16"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "authors": []
+  }
 }

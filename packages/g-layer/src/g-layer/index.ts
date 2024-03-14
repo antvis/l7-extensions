@@ -6,13 +6,13 @@ import {
   IEventTarget,
   IRenderer,
 } from '@antv/g';
-import { BaseLayer, CanvasLayer2 } from '@antv/l7';
+import { BaseLayer, CanvasLayer } from '@antv/l7';
 import { proxyEventListener } from '../utils';
 import './index.css';
 import { MapSyncService, MapSyncServiceEvent } from './services';
 import { GLayerOptions } from './types';
 
-export class GLayer extends CanvasLayer2 implements IEventTarget {
+export class GLayer extends CanvasLayer implements IEventTarget {
   gCanvas: GCanvas | null = null;
   gRenderer: IRenderer;
   mapSyncService: MapSyncService | null = null;

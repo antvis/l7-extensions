@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GLayer, GRect } from '@antv/l7-g-plugin';
+import { GHTML, GLayer } from '@antv/l7-extension-g-layer';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
@@ -24,18 +24,14 @@ export default function Demo1() {
       scene.addLayer(gLayer);
 
       for (let i = 0; i < 30; i++) {
-        const rect = new GRect({
+        const html = new GHTML({
           style: {
             x: Math.random() + 120,
             y: Math.random() + 30,
-            width: 10,
-            height: 10,
-            fill: '#1890FF',
-            stroke: '#ffffff',
-            lineWidth: 2,
+            innerHTML: `<button>${i + 1}</button>`,
           },
         });
-        gLayer.appendChild(rect);
+        gLayer.appendChild(html);
       }
 
       const stats = new Stats();

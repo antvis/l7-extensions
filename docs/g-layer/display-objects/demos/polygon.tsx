@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GEllipse, GLayer } from '@antv/l7-g-plugin';
+import { GLayer, GPolygon } from '@antv/l7-extension-g-layer';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
@@ -23,20 +23,20 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      for (let i = 0; i < 30; i++) {
-        const ellipse = new GEllipse({
-          style: {
-            cx: Math.random() + 120,
-            cy: Math.random() + 30,
-            rx: 10,
-            ry: 6,
-            fill: '#1890FF',
-            stroke: '#ffffff',
-            lineWidth: 2,
-          },
-        });
-        gLayer.appendChild(ellipse);
+      const points: [number, number][] = [];
+      for (let i = 0; i < 3; i++) {
+        points.push([Math.random() + 120, Math.random() + 30]);
       }
+      const polygon = new GPolygon({
+        style: {
+          points,
+          fill: '#1677ff9e',
+          stroke: '#1890FF',
+          lineWidth: 2,
+          cursor: 'pointer',
+        },
+      });
+      gLayer.appendChild(polygon);
 
       const stats = new Stats();
       stats.showPanel(0);

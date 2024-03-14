@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GLayer, GPolygon } from '@antv/l7-g-plugin';
+import { GLayer, GPolyline } from '@antv/l7-extension-g-layer';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
@@ -24,19 +24,18 @@ export default function Demo1() {
       scene.addLayer(gLayer);
 
       const points: [number, number][] = [];
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 10; i++) {
         points.push([Math.random() + 120, Math.random() + 30]);
       }
-      const polygon = new GPolygon({
+      const polyline = new GPolyline({
         style: {
           points,
-          fill: '#1677ff9e',
           stroke: '#1890FF',
           lineWidth: 2,
           cursor: 'pointer',
         },
       });
-      gLayer.appendChild(polygon);
+      gLayer.appendChild(polyline);
 
       const stats = new Stats();
       stats.showPanel(0);

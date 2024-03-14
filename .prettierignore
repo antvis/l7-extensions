@@ -1,8 +1,7 @@
-/dist
+dist
+docs-dist
+es
+lib
+node_modules
+.dumi
 *.yaml
-package.json
-/.dumi
-/docs-dist
-/es
-/lib
-/node_modules

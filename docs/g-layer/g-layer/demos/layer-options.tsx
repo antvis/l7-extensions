@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GCircle, GLayer } from '@antv/l7-g-plugin';
+import { GCircle, GLayer } from '@antv/l7-extension-g-layer';
 import React, { useEffect, useState } from 'react';
 import Stats from 'stats.js';
 

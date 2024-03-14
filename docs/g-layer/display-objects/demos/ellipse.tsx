@@ -1,7 +1,7 @@
 import { CanvasEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { GaodeMap, Scene } from '@antv/l7';
-import { GCircle, GLayer } from '@antv/l7-g-plugin';
+import { GEllipse, GLayer } from '@antv/l7-extension-g-layer';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
 
@@ -13,8 +13,8 @@ export default function Demo1() {
       id: mapId,
       map: new GaodeMap({
         style: 'normal',
-        center: [120.104769, 30.261406],
-        zoom: 15.85,
+        center: [120.5, 30.5],
+        zoom: 8,
       }),
     });
     scene.on('loaded', () => {
@@ -23,18 +23,19 @@ export default function Demo1() {
       });
       scene.addLayer(gLayer);
 
-      for (let i = 0; i < 300; i++) {
-        const circle = new GCircle({
+      for (let i = 0; i < 30; i++) {
+        const ellipse = new GEllipse({
           style: {
-            cx: Math.random() * 0.02 + 120.104,
-            cy: Math.random() * 0.02 + 30.26,
-            r: 6,
+            cx: Math.random() + 120,
+            cy: Math.random() + 30,
+            rx: 10,
+            ry: 6,
             fill: '#1890FF',
             stroke: '#ffffff',
             lineWidth: 2,
           },
         });
-        gLayer.appendChild(circle);
+        gLayer.appendChild(ellipse);
       }
 
       const stats = new Stats();

@@ -3,7 +3,7 @@ import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Renderer as SVGRender } from '@antv/g-svg';
 import { Renderer as WebglRenderer } from '@antv/g-webgl';
 import { GaodeMap, IPoint, Scene } from '@antv/l7';
-import { GCircle, GLayer } from '@antv/l7-g-plugin';
+import { GCircle, GLayer } from '@antv/l7-extension-g-layer';
 import GUI from 'lil-gui';
 import React, { useEffect } from 'react';
 import Stats from 'stats.js';
@@ -61,6 +61,7 @@ export default function Demo1() {
       }
 
       gLayer.addEventListener('click', (e: any) => {
+        console.log(e);
         if (e.target.nodeName === 'document') {
           const {
             coordinates: [lng, lat],

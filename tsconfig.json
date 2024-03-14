@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "es2015"],
+    "sourceMap": true,
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
@@ -8,9 +11,8 @@
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@antv/l7-g-plugin": ["src"],
-      "@antv/l7-g-plugin/*": ["src/*", "*"]
+      "@antv/l7-extension-g-layer": ["packages/g-layer/src/"]
     }
   },
-  "include": [".dumirc.ts", "src/**/*", "docs/**/*"]
+  "include": [".dumirc.ts", "packages/**/*", "docs/**/*"]
 }
