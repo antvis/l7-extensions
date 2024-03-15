@@ -1,40 +1,5 @@
-# @antv/l7-g-plugin
+# L7 Extension
 
-[![NPM version](https://img.shields.io/npm/v/@antv/l7-g-plugin.svg?style=flat)](https://npmjs.org/package/@antv/l7-g-plugin)
-[![NPM downloads](http://img.shields.io/npm/dm/@antv/l7-g-plugin.svg?style=flat)](https://npmjs.org/package/@antv/l7-g-plugin)
+> 🧩 [L7](https://github.com/antvis/L7) 的官方插件集，用于扩展 L7 的能力。
 
-A react library developed with dumi
-
-## Usage
-
-TODO
-
-## Options
-
-TODO
-
-## Development
-
-```bash
-# install dependencies
-$ yarn install
-
-# develop library by docs demo
-$ yarn start
-
-# build library source code
-$ yarn run build
-
-# build library source code in watch mode
-$ yarn run build:watch
-
-# build docs
-$ yarn run docs:build
-
-# check your project for potential problems
-$ yarn run doctor
-```
-
-## LICENSE
-
-MIT
+- [@antv/l7-extension-g-layer](https://github.com/antvis/L7Extension/blob/master/packages/g-layer/README.md)：支持在 L7 中接入 [G](https://github.com/antvis/g) 以接入更灵活的图形绘制和动画能力。

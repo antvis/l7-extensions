@@ -2,7 +2,7 @@
 title: GLayer
 order: 1
 nav:
-  title: API
+  title: GLayer
   order: 2
 ---
 

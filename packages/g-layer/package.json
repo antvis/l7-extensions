@@ -1,9 +1,10 @@
 {
   "name": "@antv/l7-extension-g-layer",
-  "version": "0.0.1",
-  "description": "A L7 plugin for using G in L7 environments",
+  "version": "1.0.0",
+  "description": "A L7 Extension for using G in L7 environments",
   "license": "MIT",
   "main": "lib/index.js",
+  "unpkg": "dist/l7-extension-g-layer.min.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
   "files": [
@@ -37,7 +38,8 @@
     "@antv/l7": "^2.21.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "authors": []
 }

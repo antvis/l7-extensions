@@ -1,10 +1,10 @@
 ---
 hero:
-  title: L7 G Plugin
-  description: A L7 plugin for using G in L7 environments
+  title: L7 Extension
+  description: A collection of extensions for L7
   actions:
-    - text: 快速开始
-      link: /api/g-layer
+    - text: GLayer
+      link: /g-layer
 # features:
 #   - title: Hello
 #     emoji: 💎
