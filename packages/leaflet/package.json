@@ -1,0 +1,31 @@
+{
+  "name": "@antv/l7-extension-leaflet",
+  "version": "1.0.2",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "unpkg": "dist/l7-extension-leaflet.min.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "father build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@antv/l7": "^2.9.26",
+    "leaflet": "~1.8.0"
+  },
+  "peerDependencies": {
+    "@antv/l7": "^2.9.26",
+    "leaflet": "~1.8.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

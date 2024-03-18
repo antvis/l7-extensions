@@ -11,7 +11,8 @@
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@antv/l7-extension-g-layer": ["packages/g-layer/src/"]
+      "@antv/l7-extension-g-layer": ["packages/g-layer/src/"],
+      "@antv/l7-extension-leaflet": ["packages/leaflet/src/"]
     }
   },
   "include": [".dumirc.ts", "packages/**/*", "docs/**/*"]
