@@ -55,20 +55,20 @@ scene.on('loaded', () => {
 
 #### 配置
 
-在 `GLayer` 实例化时传入的参数，除了 [L7 BaseLayer](https://github.com/antvis/L7/blob/ec93559e0a208155635bb9e7b16682ed72d8a538/packages/layers/src/core/BaseLayer.ts#L69) 的基础配置。
+在 `GLayer` 实例化时传入的参数，除了 [L7 BaseLayer](https://github.com/antvis/L7/tree/master/packages/layers/src/core/BaseLayer.ts#L69) 的基础配置。
 
-| 名称     | 作用                                                                                                                                              | 类型                                                                                                                               |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| renderer | **必传**，配置`GLayer` 的 [G 渲染器](https://g.antv.antgroup.com/api/renderer/intro)，常用的有 `@antv/g-canvas`、`@antv/g-svg` 和 `@antv/g-webgl` | [IRenderer](https://github.com/antvis/G/blob/654021b78bf63af03000db158c482eedeab14d51/packages/g-lite/src/AbstractRenderer.ts#L38) |
-| visible  | 初始化后是否可见，实例化后可通过`show`/`hide` 方法控制图层的显示和隐藏                                                                            | `boolean`                                                                                                                          |
-| minZoom  | 图层显示的最小`zoom` 级别                                                                                                                         | `undefined`                                                                                                                        |
-| maxZoom  | 图层显示的最大`zoom` 级别                                                                                                                         | `undefined`                                                                                                                        |
+| 名称     | 作用                                                                                                                                              | 类型                                                                                           |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| renderer | **必传**，配置`GLayer` 的 [G 渲染器](https://g.antv.antgroup.com/api/renderer/intro)，常用的有 `@antv/g-canvas`、`@antv/g-svg` 和 `@antv/g-webgl` | [IRenderer](https://github.com/antvis/G/blob/next/packages/g-lite/src/AbstractRenderer.ts#L38) |
+| visible  | 初始化后是否可见，实例化后可通过`show`/`hide` 方法控制图层的显示和隐藏                                                                            | `boolean`                                                                                      |
+| minZoom  | 图层显示的最小`zoom` 级别                                                                                                                         | `undefined`                                                                                    |
+| maxZoom  | 图层显示的最大`zoom` 级别                                                                                                                         | `undefined`                                                                                    |
 
 #### 属性
 
-| 名称    | 作用                 | 类型                                                                                                                  |
-| ------- | -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| gCanvas | `G` 的 `Canvas` 实例 | [Canvas](https://github.com/antvis/G/blob/e36259e4bbe10376bab79ed7c87148dc12abe81a/packages/g-lite/src/Canvas.ts#L75) |
+| 名称    | 作用                 | 类型                                                                                |
+| ------- | -------------------- | ----------------------------------------------------------------------------------- |
+| gCanvas | `G` 的 `Canvas` 实例 | [Canvas](https://github.com/antvis/G/blob/master/packages/g-lite/src/Canvas.ts#L75) |
 
 #### 方法
 
