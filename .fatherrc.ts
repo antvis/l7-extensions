@@ -6,6 +6,7 @@ export default defineConfig({
   cjs: { output: 'lib' },
   umd: {
     output: 'dist',
+    sourcemap: true,
     externals: {
       '@antv/l7': 'L7',
       '@antv/g': 'G',

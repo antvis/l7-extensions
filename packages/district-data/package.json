@@ -1,0 +1,27 @@
+{
+  "name": "district-data",
+  "version": "0.0.10",
+  "description": "行政区划数据 SDK",
+  "license": "MIT",
+  "main": "dist/lib/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/district-data.min.js",
+  "types": "dist/esm/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "father build"
+  },
+  "dependencies": {
+    "@turf/helpers": "^6.5.0",
+    "@turf/simplify": "^6.5.0",
+    "geobuf": "^3.0.2",
+    "pbf": "^3.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": []
+}
