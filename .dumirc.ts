@@ -22,7 +22,7 @@ export default defineConfig({
   ],
   alias: {
     '@antv/l7-extension-g-layer': '/packages/g-layer/src',
-    '@antv/l7-extension-leaflet': '/packages/leaflet/src',
+    '@antv/l7-leaflet': '/packages/leaflet/src',
   },
   mfsu: false,
 });

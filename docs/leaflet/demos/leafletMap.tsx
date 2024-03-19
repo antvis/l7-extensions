@@ -1,5 +1,5 @@
 import { LineLayer, Scene } from '@antv/l7';
-import { Map } from '@antv/l7-extension-leaflet';
+import { Map } from '@antv/l7-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect } from 'react';

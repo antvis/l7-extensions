@@ -1,5 +1,5 @@
 import { LineLayer } from '@antv/l7';
-import { L7Layer } from '@antv/l7-extension-leaflet';
+import { L7Layer } from '@antv/l7-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 

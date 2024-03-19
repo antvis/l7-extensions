@@ -1,4 +1,4 @@
-# @antv/l7-extension-leaflet
+# @antv/l7-leaflet
 
 <img src="https://gw.alipayobjects.com/mdn/rms_816329/afts/img/A*BoKITowtFWwAAAAAAAAAAAAAARQnAQ" alt="l7-leaflet-info" style="width:500px;"/>
 
@@ -24,14 +24,14 @@ L7-leaflet a lib you can be use L7 or Leaflet. it means in L7 project you can us
 ### install
 
 ```
- npm install  @antv/l7-extension-leaflet
+ npm install  @antv/l7-leaflet
 
 ```
 
 or
 
 ```
-<script src="https://unpkg.com/@antv/l7-extension-leaflet"></script>
+<script src="https://unpkg.com/@antv/l7-leaflet"></script>
 
 ```
 
@@ -41,7 +41,7 @@ or
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { LineLayer } from '@antv/l7';
-import { L7Layer } from '@antv/l7-extension-leaflet';
+import { L7Layer } from '@antv/l7-leaflet';
 
 import React, { useEffect } from 'react';
 
@@ -139,7 +139,7 @@ export default () => {
 import { Scene, LineLayer } from '@antv/l7';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Map } from '@antv/l7-extension-leaflet';
+import { Map } from '@antv/l7-leaflet';
 import React, { useEffect } from 'react';
 
 export default () => {

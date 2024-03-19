@@ -12,7 +12,7 @@
     "paths": {
       "@@/*": [".dumi/tmp/*"],
       "@antv/l7-extension-g-layer": ["packages/g-layer/src/"],
-      "@antv/l7-extension-leaflet": ["packages/leaflet/src/"]
+      "@antv/l7-leaflet": ["packages/leaflet/src/"]
     }
   },
   "include": [".dumirc.ts", "packages/**/*", "docs/**/*"]

@@ -1,5 +1,5 @@
 import { PointLayer, Scene } from '@antv/l7';
-import { L7Layer } from '@antv/l7-extension-leaflet';
+import { L7Layer } from '@antv/l7-leaflet';
 import L from 'leaflet';
 import React, { useEffect, useRef } from 'react';
 import { addBaseLayer } from './utils';

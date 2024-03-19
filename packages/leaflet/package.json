@@ -1,9 +1,9 @@
 {
-  "name": "@antv/l7-extension-leaflet",
+  "name": "@antv/l7-leaflet",
   "version": "1.0.2",
   "license": "MIT",
   "main": "lib/index.js",
-  "unpkg": "dist/l7-extension-leaflet.min.js",
+  "unpkg": "dist/l7-leaflet.min.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
   "files": [
