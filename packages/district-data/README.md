@@ -3,37 +3,15 @@
 [![NPM version](https://img.shields.io/npm/v/district-data.svg?style=flat)](https://npmjs.org/package/district-data)
 [![NPM downloads](http://img.shields.io/npm/dm/district-data.svg?style=flat)](https://npmjs.org/package/district-data)
 
-A react library developed with dumi
+支持通过 SDK 获取省、市、区维度的行政区划围栏数据
 
 ## Usage
 
-TODO
+[District Data SDK](https://l7.antv.antgroup.com/custom/tools/sdk)
 
-## Options
+## Platform
 
-TODO
-
-## Development
-
-```bash
-# install dependencies
-$ npm install
-
-# develop library by docs demo
-$ npm start
-
-# build library source code
-$ npm run build
-
-# build library source code in watch mode
-$ npm run build:watch
-
-# build docs
-$ npm run docs:build
-
-# check your project for potential problems
-$ npm run doctor
-```
+[中国行政区划数据下载](https://l7.antv.antgroup.com/custom/tools/map)
 
 ## LICENSE
 
