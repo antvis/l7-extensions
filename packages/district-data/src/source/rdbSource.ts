@@ -64,8 +64,8 @@ export class RDBSource extends BaseSource {
   ): Promise<
     FeatureCollection<Geometry | GeometryCollection, Record<string, any>>
   > {
-    const { level = 'country', type = 'wgs84' } = options;
-    return (await this.fetchData(level, type)) as FeatureCollection<
+    const { level = 'country' } = options;
+    return (await this.fetchData(level)) as FeatureCollection<
       Geometry | GeometryCollection,
       Record<string, any>
     >;
@@ -110,17 +110,14 @@ export class RDBSource extends BaseSource {
     return await res.arrayBuffer();
   };
   // 获取原始数据，数据解析并缓存
-  private async fetchData(
-    level: DataLevel,
-    type: 'wgs84' | 'gcj02',
-  ): Promise<FeatureCollection> {
+  private async fetchData(level: DataLevel): Promise<FeatureCollection> {
     if (this.data[level]) {
       // ts-ignore
       return this.data[level] as FeatureCollection;
     }
     const url =
       +this.version >= 2024
-        ? `${DataConfig.url}@${this.version}/data/${type}/${DataLevelRecord[level]}.pbf`
+        ? `${DataConfig.url}@${this.version}/data/${this.type}/${DataLevelRecord[level]}.pbf`
         : `${DataConfig.url}@${this.version}/data/${DataLevelRecord[level]}.pbf`;
     const data = await this.fetchArrayBuffer(url);
     const jsonData = geobuf.decode(new Pbf(data)) as FeatureCollection;

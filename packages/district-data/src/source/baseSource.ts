@@ -7,6 +7,7 @@ import type {
 export interface ISourceOptions {
   dataInfo?: string;
   version: string;
+  type?: 'wgs84' | 'gcj02';
 }
 
 export type DataPrecision = 'high' | 'middle' | 'low';
@@ -14,7 +15,6 @@ export interface IDataOptions {
   precision: DataPrecision;
   level: DataLevel;
   code: number;
-  type: 'wgs84' | 'gcj02';
 }
 
 export interface ChildrenDataOptions {
@@ -50,6 +50,7 @@ export default abstract class BaseSource {
     jiuduanxian: undefined,
   };
   protected version: string;
+  protected type: 'wgs84' | 'gcj02';
 
   constructor(options: Partial<ISourceOptions>) {
     this.options = {
@@ -57,6 +58,7 @@ export default abstract class BaseSource {
       ...options,
     };
     this.version = this.options.version || 'default';
+    this.type = this.options.type || 'wgs84';
   }
 
   protected abstract getDefaultOptions(): Partial<ISourceOptions>;
