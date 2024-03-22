@@ -35,6 +35,7 @@ export const useCreateLayer = <
   if (!layerRef.current) {
     layerRef.current = new Ctor(config);
 
+    // @ts-ignore
     layerManager.addLayer(layerRef.current);
   }
 
@@ -43,6 +44,7 @@ export const useCreateLayer = <
     if (layerRef.current) {
       const changeOption = !isEqual(layerOptionsRef.current, options);
       if (changeOption) {
+        // @ts-ignore
         layerRef.current.update(options);
         layerOptionsRef.current = cloneDeep(options);
       }
@@ -58,6 +60,7 @@ export const useCreateLayer = <
       const changeSource =
         data !== currentData || !isEqual(restOptions, restCurrentOptions);
       if (changeSource) {
+        // @ts-ignore
         layerRef.current.changeData(source);
         layerSourceRef.current = { ...source };
       }
@@ -68,7 +71,9 @@ export const useCreateLayer = <
   useEffect(() => {
     return () => {
       if (layerRef.current) {
+        // @ts-ignore
         layerManager.removeLayer(layerRef.current);
+        // @ts-ignore
         layerRef.current = null;
       }
     };

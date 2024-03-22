@@ -8,18 +8,15 @@ const mapId = 'map' + Math.random();
 
 export default function Demo1() {
   const config = {
-    mapType: 'Gaode',
-    mapOptions: {
-      style: 'light',
-      center: [120.210792, 30.246026],
-      pitch: 0,
-      zoom: 8,
-      rotation: 0,
-    },
+    style: 'light',
+    center: [120.210792, 30.246026] as [number, number],
+    pitch: 0,
+    zoom: 8,
+    rotation: 0,
   };
 
   return (
-    <LarkMap {...config} style={{ height: '300px' }}>
+    <LarkMap mapType="Gaode" mapOptions={config} style={{ height: '300px' }}>
       <GLayerReact
         config={{
           renderer: new CanvasRenderer(),

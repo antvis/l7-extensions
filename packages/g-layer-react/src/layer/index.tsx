@@ -1,5 +1,5 @@
 import { CanvasLayer, ICanvasLayerOptions } from '@antv/l7';
-import { GLayer } from 'packages/g-layer/src';
+import { GLayer } from '@antv/l7-extension-g-layer';
 import { forwardRef, memo, useImperativeHandle } from 'react';
 import { useCreateLayer, useLayerEvent } from '../hooks';
 
