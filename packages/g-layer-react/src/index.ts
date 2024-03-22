@@ -1,1 +1,1 @@
-console.log('g-layer-react');
+export * from './layer';
