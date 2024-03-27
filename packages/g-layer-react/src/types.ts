@@ -1,11 +1,18 @@
-import type { IRenderer } from '@antv/g';
+import type { Canvas as GCanvas, IRenderer } from '@antv/g';
 import type { ICanvasLayerOptions } from '@antv/l7-layers';
+import { MapSyncService } from 'packages/g-layer/src/g-layer/services';
 
 export interface GLayerReactOptions extends ICanvasLayerOptions {
   renderer: IRenderer;
   visible?: boolean;
   minZoom?: number;
   maxZoom?: number;
+}
+
+export interface GLayer {
+  gCanvas: GCanvas | null;
+  gRenderer: IRenderer;
+  mapSyncService: MapSyncService | null;
 }
 
 import { CanvasLayer } from '@antv/l7';

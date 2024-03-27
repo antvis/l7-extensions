@@ -1,9 +1,9 @@
 ---
-title: GLayer
-order: 6
+title: GLayerReact
+order: 1
 nav:
-  title: GLayer
-  order: 1
+  title: GLayerReact
+  order: 4
 ---
 
 ## text
