@@ -1,6 +1,6 @@
 {
   "name": "district-data",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "行政区划数据 SDK",
   "license": "MIT",
   "main": "dist/lib/index.js",

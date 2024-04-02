@@ -20,7 +20,7 @@ const DataConfig = {
     text: '锐多宝的地理空间',
     href: 'https://github.com/ruiduobao/shengshixian.com',
   },
-  url: 'https://jsd.onmicrosoft.cn/npm/xingzhengqu',
+  url: 'https://registry.npmmirror.com/xingzhengqu',
   // url: 'https://unpkg.com/xingzhengqu',
 };
 
@@ -117,8 +117,8 @@ export class RDBSource extends BaseSource {
     }
     const url =
       +this.version >= 2024
-        ? `${DataConfig.url}@${this.version}/data/${this.type}/${DataLevelRecord[level]}.pbf`
-        : `${DataConfig.url}@${this.version}/data/${DataLevelRecord[level]}.pbf`;
+        ? `${DataConfig.url}/${this.version}/files/data/${this.type}/${DataLevelRecord[level]}.pbf`
+        : `${DataConfig.url}/${this.version}/files/data/${DataLevelRecord[level]}.pbf`;
     const data = await this.fetchArrayBuffer(url);
     const jsonData = geobuf.decode(new Pbf(data)) as FeatureCollection;
     this.data[level] = jsonData;
