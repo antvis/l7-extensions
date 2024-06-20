@@ -60,14 +60,17 @@ export class DataVSource extends BaseSource {
   ): Promise<
     FeatureCollection<Geometry | GeometryCollection, Record<string, any>>
   > {
-    const url = `${DataConfig.url}/${this.version}/bound/${code}.json`;
-    const fullURL = `${DataConfig.url}/${this.version}/bound/${code}_full.json`;
-    if (full) {
-      const data = await this.fetchJsonData(fullURL);
-      return data;
-    } else {
-      const data = await this.fetchJsonData(url);
-      return data;
+    let url = full
+      ? `${DataConfig.url}/${this.version}/bound/${code}_full.json`
+      : `${DataConfig.url}/${this.version}/bound/${code}.json`;
+    if (this.options.getCdnUrl) {
+      url = this.options.getCdnUrl({
+        origin: DataConfig.url,
+        version: this.version,
+        adcode: code,
+        isFull: full,
+      });
     }
+    return await this.fetchJsonData(url);
   }
 }
