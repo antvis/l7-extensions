@@ -8,6 +8,7 @@ export interface ISourceOptions {
   dataInfo?: string;
   version: string;
   type?: 'wgs84' | 'gcj02';
+  getCdnUrl?: (params: any) => string;
 }
 
 export type DataPrecision = 'high' | 'middle' | 'low';
@@ -39,7 +40,7 @@ export interface ISourceInfo {
 }
 export default abstract class BaseSource {
   public info: Partial<ISourceInfo> = {};
-  private options: Partial<ISourceOptions> = {};
+  protected options: Partial<ISourceOptions> = {};
   protected data: {
     [K in DataLevel]: FeatureCollection | undefined;
   } = {
