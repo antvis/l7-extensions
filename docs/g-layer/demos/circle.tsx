@@ -34,6 +34,7 @@ export default function Demo1() {
             lineWidth: 2,
           },
         });
+        console.log(circle, 'circle');
         gLayer.appendChild(circle);
       }
 
