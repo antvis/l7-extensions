@@ -22,6 +22,7 @@ export default defineConfig({
   ],
   alias: {
     '@antv/l7-extension-g-layer': '/packages/g-layer/src',
+    '@antv/l7-extension-g-layer-react': '/packages/g-layer-react/src',
     '@antv/l7-leaflet': '/packages/leaflet/src',
     'district-data': '/packages/district-data/src',
   },
